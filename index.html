@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiveawayGaze - Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        var shareCount = 0;
+
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var mobile = document.getElementById("mobile").value;
+
+            if (name == "" || mobile == "") {
+                alert("Name and Mobile Number must be filled out.");
+                return false;
+            }
+
+            var mobilePattern = /^[0-9]{10,15}$/;
+            if (!mobilePattern.test(mobile)) {
+                alert("Please enter a valid mobile number.");
+                return false;
+            }
+
+            if (shareCount < 4) {
+                alert("You must share on WhatsApp at least 4 times to submit the form.");
+                return false;
+            }
+
+            alert("Entry submitted successfully.");
+            return false;
+        }
+
+        function shareOnWhatsApp() {
+            var message = "Join me in participating in giveaways on GiveawayGaze.com! Click [Your Website Link] to enter and win exciting prizes!";
+            var url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
+            window.open(url, '_blank').focus();
+
+            shareCount++;
+            document.getElementById('shareCount').innerText = shareCount;
+            document.getElementById('shareProgressBar').style.width = (shareCount / 4 * 100) + '%';
+
+            if (shareCount >= 4) {
+                document.getElementById('shareButton').disabled = true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">GiveawayGaze</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="winners.html">Winners</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="watch_ad.html">Watch Ads</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Join the Ultimate Giveaway at GiveawayGaze.com!</h1>
+        <p>We're giving away 1000 Smartwatches, 100 Headphones, and one Smartphone! Enter our exciting giveaways by sharing on WhatsApp, and increase your chances of winning by watching short ads and visiting daily for extra entries. Track your progress, engage with our content, and stay updated with our winner announcements. Don't miss out on your chance to win amazing prizes—join GiveawayGaze.com today!</p>
+        <p>GiveawayGaze.com पर सबसे बड़े गिवअवे में शामिल हों! हम दे रहे हैं 1000 स्मार्टवॉच, 100 हेडफोन और एक स्मार्टफोन! हमारे रोमांचक गिवअवे में शामिल होने के लिए व्हाट्सएप पर शेयर करें और अपनी जीतने की संभावना बढ़ाने के लिए छोटे विज्ञापन देखें और रोज़ाना विजिट करें। अपनी प्रगति ट्रैक करें, हमारे कंटेंट से जुड़ें, और हमारे विजेता घोषणाओं को देखें। अद्भुत पुरस्कार जीतने का मौका न चूकें—आज ही GiveawayGaze.com से जुड़ें!</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Enter Giveaway</h5>
+                        <p class="card-text">Join our giveaways by entering your details and increase your chances by sharing and watching ads.</p>
+                        <a href="#entry-form" class="btn btn-primary">Enter Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">View Winners</h5>
+                        <p class="card-text">Check out the list of lucky winners and see what prizes they've won!</p>
+                        <a href="winners.html" class="btn btn-primary">View Winners</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entry Form -->
+        <div class="mt-5" id="entry-form">
+            <h1>Enter Giveaway</h1>
+            <form onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="text" class="form-control" id="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email (optional):</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <button type="button" class="btn btn-primary" id="shareButton" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+                <div class="mt-2">
+                    <p>WhatsApp Shares: <span id="shareCount">0</span>/4</p>
+                    <div class="progress">
+                        <div id="shareProgressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Submit</button>
+            </form>
+        </div>
+
+        <!-- Display prize details -->
+        <div class="mt-5">
+            <h2>Current Giveaway Prizes</h2>
+            <div class="row">
+                <div class='col-md-4'>
+                    <div class='card mb-4 shadow-sm'>
+                        <img src='images/smartwatch.jpg' class='card-img-top' alt='Smartwatch'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>Smartwatch</h5>
+                            <p class='card-text'>A high-quality smartwatch with various features.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='card mb-4 shadow-sm'>
+                        <img src='images/headphone.jpg' class='card-img-top' alt='Headphone'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>Headphone</h5>
+                            <p class='card-text'>Noise-cancelling over-ear headphones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='card mb-4 shadow-sm'>
+                        <img src='images/smartphone.jpg' class='card-img-top' alt='Smartphone'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>Smartphone</h5>
+                            <p class='card-text'>The latest model smartphone with all advanced features.</p>
+                        </div>
+                    </div>
+                </div>
+                <p>No active giveaways at the moment. Check back later!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 GiveawayGaze. All rights reserved.</p>
+        <p>Contact us at <a href="mailto:giveawaygaze78@gmail.com">giveawaygaze78@gmail.com</a></p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
